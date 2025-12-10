@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { faker } from "@faker-js/faker";
+import TextColor from "./components/TextColor";
+import LoadKeyLayout from "./components/LoadKeyLayout";
 
 function App() {
   const [cursorPosition, setCursorPosition] = useState(0);
@@ -12,6 +14,10 @@ function App() {
   const [correctness, setCorrectness] = useState(() =>
     Array(lettersArray.length).fill("static")
   );
+
+  const [userTopRow, setUserTopRow] = useState([""]);
+  const [userHomeRow, setUserHomeRow] = useState([""]);
+  const [userLowerRow, setUserLowerRow] = useState([""]);
 
   // listen for key inputs
   useEffect(() => {
@@ -35,23 +41,29 @@ function App() {
     };
   }, [cursorPosition]);
 
-  // manage text color
-  function textColor(index: number) {
-    return correctness[index] === "wrong"
-      ? "bg-red-500 font-bold"
-      : index === cursorPosition
-      ? "text-blue-600"
-      : correctness[index] === "correct"
-      ? "text-slate-100"
-      : "text-slate-400";
-  }
-
   return (
     <>
+      <div className="m-5 p-5 rounded-lg border-2 border-indigo-700">
+        <LoadKeyLayout
+          setUserTopRow={setUserTopRow}
+          setUserHomeRow={setUserHomeRow}
+          setUserLowerRow={setUserLowerRow}
+          userTopRow={userTopRow}
+          userHomeRow={userHomeRow}
+          userLowerRow={userLowerRow}
+        />
+      </div>
       <h1 className="text-3xl font-bold">Welcome.</h1>
       <div className="m-5 p-5 rounded-lg border-2 border-indigo-700">
         {lettersArray.map((letter, index) => (
-          <span key={index} className={`target-text ${textColor(index)}`}>
+          <span
+            key={index}
+            className={`target-text ${TextColor(
+              index,
+              correctness,
+              cursorPosition
+            )}`}
+          >
             {letter}
           </span>
         ))}
