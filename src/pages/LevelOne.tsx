@@ -11,6 +11,7 @@ const [lettersArray] = useState(() =>
     .map((letter: string) => [letter])
 );
 
+<h1 className="text-3xl font-bold">Welcome.</h1>
 <div className="m-5 p-5 rounded-lg border-2 border-indigo-700">
   {lettersArray.map((letter, index) => (
     <span key={index} className={`target-text ${textColor(index)}`}>
