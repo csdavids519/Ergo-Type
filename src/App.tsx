@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { faker } from "@faker-js/faker";
 import TextColor from "./components/TextColor";
 import LoadKeyLayout from "./components/LoadKeyLayout";
@@ -71,5 +71,4 @@ function App() {
     </>
   );
 }
-
 export default App;
