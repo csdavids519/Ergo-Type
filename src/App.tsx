@@ -1,20 +1,18 @@
 import { useState } from "react";
-import { faker } from "@faker-js/faker";
 import KeyInput from "./components/KeyInputs";
 import KeyLayout from "./components/KeyLayout";
 import TextDisplay from "./components/TextDisplay";
 
 function App() {
+  // position tracking states
   const [cursorPosition, setCursorPosition] = useState(0);
-  const [lettersArray] = useState(() =>
-    faker.word
-      .words(10)
-      .split("")
-      .map((letter: string) => [letter])
-  );
+  const [lettersArray, setLettersArray] = useState<string[][]>([]);
   const [correctness, setCorrectness] = useState(() =>
     Array(lettersArray.length).fill("static")
   );
+
+  // track user learning level
+  const [userLevel, setUserLevel] = useState(0);
 
   // KeyLayout States
   const [topRow, setTopRow] = useState("");
@@ -34,20 +32,22 @@ function App() {
         setLowerRow={setLowerRow}
         setSubmitted={setSubmitted}
       />
+      <h1 className="text-3xl font-bold">Welcome.</h1>
+      <div className="m-5 p-5 rounded-lg border-2 border-indigo-700">
+        <TextDisplay
+          correctness={correctness}
+          lettersArray={lettersArray}
+          setLettersArray={setLettersArray}
+          cursorPosition={cursorPosition}
+          userLevel={userLevel}
+        />
+      </div>
       <KeyInput
         setCorrectness={setCorrectness}
         setCursorPosition={setCursorPosition}
         cursorPosition={cursorPosition}
         lettersArray={lettersArray}
       />
-      <h1 className="text-3xl font-bold">Welcome.</h1>
-      <div className="m-5 p-5 rounded-lg border-2 border-indigo-700">
-        <TextDisplay
-          correctness={correctness}
-          lettersArray={lettersArray}
-          cursorPosition={cursorPosition}
-        />
-      </div>
     </>
   );
 }
