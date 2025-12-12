@@ -16,6 +16,13 @@ export default function KeyInput({
 }: KeyInputProps) {
   useEffect(() => {
     function handleKeyPress(event: KeyboardEvent) {
+      if (
+        cursorPosition >= lettersArray.length ||
+        !lettersArray[cursorPosition]
+      ) {
+        return;
+      }
+
       setCorrectness((prev) => {
         const next = [...prev];
         if (lettersArray[cursorPosition][0] === event.key) {
@@ -33,6 +40,7 @@ export default function KeyInput({
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
-  }, [cursorPosition]);
+  }, [cursorPosition, lettersArray, setCorrectness, setCursorPosition]);
+
   return null;
 }

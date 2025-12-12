@@ -9,6 +9,9 @@ interface TextDisplayProps {
   setLettersArray: React.Dispatch<React.SetStateAction<string[][]>>;
   cursorPosition: number;
   userLevel: number;
+  topRow: string;
+  homeRow: string;
+  lowerRow: string;
 }
 
 export default function TextDisplay({
@@ -17,13 +20,17 @@ export default function TextDisplay({
   setLettersArray,
   cursorPosition,
   userLevel,
+  topRow,
+  homeRow,
+  lowerRow,
 }: TextDisplayProps) {
-  // Set letters based on level
-
-  //   const words = faker.word.words(10);
-  //   const letters = words.split("").map((letter: string) => [letter]);
-  const letters = words.split("").map((letter: string) => [letter]);
-  setLettersArray(letters);
+  useEffect(() => {
+    if (homeRow) {
+      const words = homeRow;
+      const letters = words.split("").map((letter: string) => [letter]);
+      setLettersArray(letters);
+    }
+  }, [homeRow, setLettersArray]);
 
   return (
     <>
