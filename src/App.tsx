@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { faker } from "@faker-js/faker";
 import TextColor from "./components/TextColor";
+import KeyInput from "./components/KeyInputs";
 
 function App() {
   const [cursorPosition, setCursorPosition] = useState(0);
@@ -14,30 +15,14 @@ function App() {
     Array(lettersArray.length).fill("static")
   );
 
-  // listen for key inputs
-  useEffect(() => {
-    function handleKeyPress(event: KeyboardEvent) {
-      setCorrectness((prev: string[]) => {
-        const next = [...prev];
-        if (lettersArray[cursorPosition][0] === event.key) {
-          next[cursorPosition] = "correct";
-          setCursorPosition((x) => x + 1);
-        } else {
-          next[cursorPosition] = "wrong";
-        }
-        return next;
-      });
-    }
-
-    window.addEventListener("keydown", handleKeyPress);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyPress);
-    };
-  }, [cursorPosition]);
-
   return (
     <>
+      <KeyInput
+        setCorrectness={setCorrectness}
+        setCursorPosition={setCursorPosition}
+        cursorPosition={cursorPosition}
+        lettersArray={lettersArray}
+      />
       <h1 className="text-3xl font-bold">Welcome.</h1>
       <div className="m-5 p-5 rounded-lg border-2 border-indigo-700">
         {lettersArray.map((letter, index) => (
