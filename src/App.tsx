@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { faker } from "@faker-js/faker";
-import TextColor from "./components/TextColor";
 import KeyInput from "./components/KeyInputs";
+import KeyLayout from "./components/KeyLayout";
+import TextDisplay from "./components/TextDisplay";
 
 function App() {
   const [cursorPosition, setCursorPosition] = useState(0);
@@ -15,8 +16,24 @@ function App() {
     Array(lettersArray.length).fill("static")
   );
 
+  // KeyLayout States
+  const [topRow, setTopRow] = useState("");
+  const [homeRow, setHomeRow] = useState("");
+  const [lowerRow, setLowerRow] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
   return (
     <>
+      <KeyLayout
+        topRow={topRow}
+        homeRow={homeRow}
+        lowerRow={lowerRow}
+        submitted={submitted}
+        setTopRow={setTopRow}
+        setHomeRow={setHomeRow}
+        setLowerRow={setLowerRow}
+        setSubmitted={setSubmitted}
+      />
       <KeyInput
         setCorrectness={setCorrectness}
         setCursorPosition={setCursorPosition}
@@ -25,18 +42,11 @@ function App() {
       />
       <h1 className="text-3xl font-bold">Welcome.</h1>
       <div className="m-5 p-5 rounded-lg border-2 border-indigo-700">
-        {lettersArray.map((letter, index) => (
-          <span
-            key={index}
-            className={`target-text ${TextColor(
-              index,
-              correctness,
-              cursorPosition
-            )}`}
-          >
-            {letter}
-          </span>
-        ))}
+        <TextDisplay
+          correctness={correctness}
+          lettersArray={lettersArray}
+          cursorPosition={cursorPosition}
+        />
       </div>
     </>
   );
