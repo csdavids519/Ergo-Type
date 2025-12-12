@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { faker } from "@faker-js/faker";
+import TextColor from "./components/TextColor";
 
 function App() {
   const [cursorPosition, setCursorPosition] = useState(0);
@@ -35,23 +36,19 @@ function App() {
     };
   }, [cursorPosition]);
 
-  // manage text color
-  function textColor(index: number) {
-    return correctness[index] === "wrong"
-      ? "bg-red-500 font-bold"
-      : index === cursorPosition
-      ? "text-blue-600"
-      : correctness[index] === "correct"
-      ? "text-slate-100"
-      : "text-slate-400";
-  }
-
   return (
     <>
       <h1 className="text-3xl font-bold">Welcome.</h1>
       <div className="m-5 p-5 rounded-lg border-2 border-indigo-700">
         {lettersArray.map((letter, index) => (
-          <span key={index} className={`target-text ${textColor(index)}`}>
+          <span
+            key={index}
+            className={`target-text ${TextColor(
+              index,
+              correctness,
+              cursorPosition
+            )}`}
+          >
             {letter}
           </span>
         ))}
