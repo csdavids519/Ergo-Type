@@ -25,7 +25,9 @@ function TypingLesson() {
           lettersArray={lettersArray}
           setLettersArray={setLettersArray}
           cursorPosition={cursorPosition}
+          setCursorPosition={setCursorPosition}
           userLevel={userLevel}
+          setUserLevel={setUserLevel}
           topRow={topRow}
           homeRow={homeRow}
           lowerRow={lowerRow}

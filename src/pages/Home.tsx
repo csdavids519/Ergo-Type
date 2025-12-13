@@ -29,14 +29,16 @@ export default function HomePage() {
           setLowerRow={setLowerRow}
           setSubmitted={setSubmitted}
         />
-        <div className="space-x-4">
-          <Link
-            to="/typing"
-            className="inline-block bg-slate-500 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 hover:text-black transition"
-          >
-            Start Typing
-          </Link>
-        </div>
+        {submitted && (
+          <div className="space-x-4">
+            <Link
+              to="/typing"
+              className="inline-block bg-slate-500 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 hover:text-black transition"
+            >
+              Start Typing
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

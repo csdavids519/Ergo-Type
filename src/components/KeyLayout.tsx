@@ -38,25 +38,36 @@ export default function KeyLayout({
     <div>
       {!submitted && (
         <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            className="border-2"
-            value={topRow}
-            onChange={(e) => setTopRow(e.target.value)}
-          />
-          <input
-            type="text"
-            className="border-2"
-            value={homeRow}
-            onChange={(e) => setHomeRow(e.target.value)}
-          />
-          <input
-            type="text"
-            className="border-2"
-            value={lowerRow}
-            onChange={(e) => setLowerRow(e.target.value)}
-          />
-          <button type="submit">Submit</button>
+          <div>
+            <input
+              type="text"
+              className="m-1 border-2"
+              value={topRow}
+              placeholder="Enter your top row keys"
+              onChange={(e) => setTopRow(e.target.value)}
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              className="m-1 border-2"
+              value={homeRow}
+              placeholder="Enter your home row keys"
+              onChange={(e) => setHomeRow(e.target.value)}
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              className="m-1 border-2"
+              value={lowerRow}
+              placeholder="Enter your lower row keys"
+              onChange={(e) => setLowerRow(e.target.value)}
+            />
+          </div>
+          <button className="m-2" type="submit">
+            Submit
+          </button>
         </form>
       )}
     </div>
