@@ -1,6 +1,6 @@
 import TextColor from "./TextColor";
-import { faker } from "@faker-js/faker";
-import { useEffect, useState } from "react";
+import { el, faker } from "@faker-js/faker";
+import { act, useEffect, useState } from "react";
 // Display text for user to type based on level
 
 interface TextDisplayProps {
@@ -29,37 +29,54 @@ export default function TextDisplay({
   lowerRow,
 }: TextDisplayProps) {
   const [letterPosition, setLetterPosition] = useState(0);
-  const testLength = 5; // constant
+  const testLength = 5;
+
+  const [activeLetters, setActiveLetters] = useState(homeRow.split(""));
+
+  useEffect(() => {
+    if (userLevel === 0) {
+      setActiveLetters(homeRow.split(""));
+    } else if (userLevel === 1) {
+      setActiveLetters(topRow.split(""));
+    }
+  }, [userLevel]);
 
   // Initialize with first letter repeated 3 times
   useEffect(() => {
-    if (homeRow) {
-      const letters = homeRow.split("");
-      const initialLetters = Array(testLength).fill([letters[0]]);
-      setLettersArray(initialLetters);
-    }
-  }, [homeRow, setLettersArray]);
+    const displayLetters = Array(testLength).fill([activeLetters[0]]);
+    setLettersArray(displayLetters);
+  }, [activeLetters, userLevel]);
+
+  console.log("ACTIVE LETTERS", activeLetters);
 
   // Check cursor position and advance to next letter
   useEffect(() => {
-    if (!homeRow) return;
-
-    const letters = homeRow.split("");
+    if (!activeLetters) return;
 
     // When cursor reaches the end (testLength)
     if (cursorPosition === testLength && cursorPosition > 0) {
-      const nextPosition = letterPosition + 1;
+      let nextPosition = letterPosition + 1;
 
       // Check if there's a next letter
-      if (nextPosition < letters.length) {
+      console.log("nextpos", nextPosition);
+      console.log("length: ", activeLetters.length);
+      if (nextPosition < activeLetters.length) {
         setLetterPosition(nextPosition);
-        const nextLetters = Array(testLength).fill([letters[nextPosition]]);
+        const nextLetters = Array(testLength).fill([
+          activeLetters[nextPosition],
+        ]);
         setLettersArray(nextLetters);
         setCursorPosition(0); // Reset cursor for new letter set
       }
 
-      if (cursorPosition === testLength && nextPosition === letters.length) {
+      if (
+        cursorPosition === testLength &&
+        nextPosition === activeLetters.length
+      ) {
         setUserLevel(1);
+        setCursorPosition(0);
+        setLetterPosition(0);
+        nextPosition = 0;
       }
     }
   }, [
@@ -68,6 +85,8 @@ export default function TextDisplay({
     letterPosition,
     setLettersArray,
     setCursorPosition,
+    activeLetters,
+    userLevel,
   ]);
 
   const userMessage: string = `Level ${userLevel}`;
@@ -81,7 +100,7 @@ export default function TextDisplay({
           className={`target-text ${TextColor(
             index,
             correctness,
-            cursorPosition
+            cursorPosition,
           )}`}
         >
           {letter}
