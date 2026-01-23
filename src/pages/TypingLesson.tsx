@@ -10,7 +10,7 @@ function TypingLesson() {
   const [cursorPosition, setCursorPosition] = useState(0);
   const [lettersArray, setLettersArray] = useState<string[][]>([]);
   const [correctness, setCorrectness] = useState(() =>
-    Array(lettersArray.length).fill("static")
+    Array(lettersArray.length).fill("static"),
   );
 
   // track user learning level

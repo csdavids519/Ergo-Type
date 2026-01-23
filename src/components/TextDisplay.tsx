@@ -1,8 +1,11 @@
+// Manage the display of tests and advancement of user level
+
 import TextColor from "./TextColor";
 import { el, faker } from "@faker-js/faker";
 import { act, useEffect, useState } from "react";
-// Display text for user to type based on level
+import UserTest_1 from "./UserTest_1";
 
+// Display text for user to type based on level
 interface TextDisplayProps {
   correctness: string[];
   lettersArray: string[][];
@@ -33,22 +36,6 @@ export default function TextDisplay({
 
   const [activeLetters, setActiveLetters] = useState(homeRow.split(""));
 
-  useEffect(() => {
-    if (userLevel === 0) {
-      setActiveLetters(homeRow.split(""));
-    } else if (userLevel === 1) {
-      setActiveLetters(topRow.split(""));
-    }
-  }, [userLevel]);
-
-  // Initialize with first letter repeated 3 times
-  useEffect(() => {
-    const displayLetters = Array(testLength).fill([activeLetters[0]]);
-    setLettersArray(displayLetters);
-  }, [activeLetters, userLevel]);
-
-  console.log("ACTIVE LETTERS", activeLetters);
-
   // Check cursor position and advance to next letter
   useEffect(() => {
     if (!activeLetters) return;
@@ -58,8 +45,6 @@ export default function TextDisplay({
       let nextPosition = letterPosition + 1;
 
       // Check if there's a next letter
-      console.log("nextpos", nextPosition);
-      console.log("length: ", activeLetters.length);
       if (nextPosition < activeLetters.length) {
         setLetterPosition(nextPosition);
         const nextLetters = Array(testLength).fill([
@@ -91,9 +76,22 @@ export default function TextDisplay({
 
   const userMessage: string = `Level ${userLevel}`;
 
+  let renderTest;
+
+  if (userLevel === 1) {
+    renderTest = (
+      <UserTest_1 topRow={topRow} homeRow={homeRow} lowerRow={lowerRow} />
+    );
+  } else if (userLevel == 2) {
+    renderTest = (
+      <UserTest_2 topRow={topRow} homeRow={homeRow} lowerRow={lowerRow} />
+    );
+  }
+
   return (
     <>
       <p>{userMessage} </p>
+      {renderTest}
       {lettersArray.map((letter, index) => (
         <span
           key={index}
