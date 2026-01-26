@@ -1,11 +1,9 @@
-// Manage the display of tests and advancement of user level
+// Manages the display of tests and advancement of user level
 
-import TextColor from "./TextColor";
-import { el, faker } from "@faker-js/faker";
-import { act, useEffect, useState } from "react";
+import UserTest_0 from "./UserTest_0";
 import UserTest_1 from "./UserTest_1";
 
-// Display text for user to type based on level
+console.log("TextDisplay component loaded");
 interface TextDisplayProps {
   correctness: string[];
   lettersArray: string[][];
@@ -31,79 +29,48 @@ export default function TextDisplay({
   homeRow,
   lowerRow,
 }: TextDisplayProps) {
-  const [letterPosition, setLetterPosition] = useState(0);
   const testLength = 5;
+  const userMessage = `Level ${userLevel}`;
 
-  const [activeLetters, setActiveLetters] = useState(homeRow.split(""));
-
-  // Check cursor position and advance to next letter
-  useEffect(() => {
-    if (!activeLetters) return;
-
-    // When cursor reaches the end (testLength)
-    if (cursorPosition === testLength && cursorPosition > 0) {
-      let nextPosition = letterPosition + 1;
-
-      // Check if there's a next letter
-      if (nextPosition < activeLetters.length) {
-        setLetterPosition(nextPosition);
-        const nextLetters = Array(testLength).fill([
-          activeLetters[nextPosition],
-        ]);
-        setLettersArray(nextLetters);
-        setCursorPosition(0); // Reset cursor for new letter set
-      }
-
-      if (
-        cursorPosition === testLength &&
-        nextPosition === activeLetters.length
-      ) {
-        setUserLevel(1);
-        setCursorPosition(0);
-        setLetterPosition(0);
-        nextPosition = 0;
-      }
-    }
-  }, [
-    cursorPosition,
-    homeRow,
-    letterPosition,
-    setLettersArray,
-    setCursorPosition,
-    activeLetters,
-    userLevel,
-  ]);
-
-  const userMessage: string = `Level ${userLevel}`;
-
+  // Render appropriate test based on level
   let renderTest;
 
-  if (userLevel === 1) {
+  if (userLevel === 0) {
     renderTest = (
-      <UserTest_1 topRow={topRow} homeRow={homeRow} lowerRow={lowerRow} />
+      <UserTest_0
+        homeRow={homeRow}
+        correctness={correctness}
+        lettersArray={lettersArray}
+        setLettersArray={setLettersArray}
+        cursorPosition={cursorPosition}
+        setCursorPosition={setCursorPosition}
+        userLevel={userLevel}
+        setUserLevel={setUserLevel}
+        testLength={testLength}
+      />
     );
-  } else if (userLevel == 2) {
+  } else if (userLevel === 1) {
     renderTest = (
-      <UserTest_2 topRow={topRow} homeRow={homeRow} lowerRow={lowerRow} />
+      <UserTest_1
+        topRow={topRow}
+        homeRow={homeRow}
+        lowerRow={lowerRow}
+        correctness={correctness}
+        lettersArray={lettersArray}
+        setLettersArray={setLettersArray}
+        cursorPosition={cursorPosition}
+        setCursorPosition={setCursorPosition}
+        userLevel={userLevel}
+        setUserLevel={setUserLevel}
+        testLength={testLength}
+      />
     );
   }
 
   return (
     <>
-      <p>{userMessage} </p>
+      <p>{userMessage}</p>
       {renderTest}
-      {lettersArray.map((letter, index) => (
-        <span
-          key={index}
-          className={`target-text ${TextColor(
-            index,
-            correctness,
-            cursorPosition,
-          )}`}
-        >
-          {letter}
-        </span>
-      ))}
     </>
   );
 }

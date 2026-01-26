@@ -1,16 +1,12 @@
-// UserTest_1.tsx
-// Test: Repeat each letter from all rows
-// Goal: Commit all letter positions to memory
+// UserTest_0.tsx
+// Test: Practice each letter from home row individually
+// Goal: Learn home row letter positions
 
 import { useState, useEffect } from "react";
 import TextColor from "./TextColor";
 
-console.log("UserTest_1 component loaded");
-
-interface UserTest_1Props {
-  topRow: string;
+interface UserTest_0Props {
   homeRow: string;
-  lowerRow: string;
   correctness: string[];
   lettersArray: string[][];
   setLettersArray: React.Dispatch<React.SetStateAction<string[][]>>;
@@ -21,10 +17,8 @@ interface UserTest_1Props {
   testLength: number;
 }
 
-export default function UserTest_1({
-  topRow,
+export default function UserTest_0({
   homeRow,
-  lowerRow,
   correctness,
   lettersArray,
   setLettersArray,
@@ -32,46 +26,45 @@ export default function UserTest_1({
   setCursorPosition,
   setUserLevel,
   testLength,
-}: UserTest_1Props) {
-  const [activeLetterGroup, setActiveLetterGroup] = useState<string[]>([]);
-  const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
+}: UserTest_0Props) {
+  const [activeLetters, setActiveLetters] = useState<string[]>([]);
+  const [letterPosition, setLetterPosition] = useState(0);
 
-  // Initialize letter group on mount or when rows change
+  // Initialize home row letters
   useEffect(() => {
-    const groupLetters = homeRow + topRow + lowerRow;
-    const letters = groupLetters.split("");
-    setActiveLetterGroup(letters);
+    const letters = homeRow.split("");
+    setActiveLetters(letters);
 
     // Initialize with first letter
     if (letters.length > 0) {
       setLettersArray(Array(testLength).fill([letters[0]]));
     }
-  }, [homeRow, topRow, lowerRow, setLettersArray, testLength]);
+  }, [homeRow, setLettersArray, testLength]);
 
-  // Handle progression through letters
+  // Handle progression through home row letters
   useEffect(() => {
-    if (!activeLetterGroup.length) return;
+    if (!activeLetters.length) return;
 
-    // When cursor reaches the end of current letter repetition
+    // When cursor reaches the end of current letter practice
     if (cursorPosition === testLength && cursorPosition > 0) {
-      const nextIndex = currentLetterIndex + 1;
+      const nextPosition = letterPosition + 1;
 
-      if (nextIndex < activeLetterGroup.length) {
+      if (nextPosition < activeLetters.length) {
         // Move to next letter
-        setCurrentLetterIndex(nextIndex);
-        setLettersArray(Array(testLength).fill([activeLetterGroup[nextIndex]]));
+        setLetterPosition(nextPosition);
+        setLettersArray(Array(testLength).fill([activeLetters[nextPosition]]));
         setCursorPosition(0);
       } else {
-        // Completed all letters in level 1, advance to level 2
-        setUserLevel(2);
+        // Completed all home row letters, advance to level 1
+        setUserLevel(1);
         setCursorPosition(0);
-        setCurrentLetterIndex(0);
+        setLetterPosition(0);
       }
     }
   }, [
     cursorPosition,
-    currentLetterIndex,
-    activeLetterGroup,
+    letterPosition,
+    activeLetters,
     setLettersArray,
     setCursorPosition,
     setUserLevel,
