@@ -38,7 +38,9 @@ export default function TextDisplay({
   if (userLevel === 0) {
     renderTest = (
       <UserTest_0
+        topRow={topRow}
         homeRow={homeRow}
+        lowerRow={lowerRow}
         correctness={correctness}
         lettersArray={lettersArray}
         setLettersArray={setLettersArray}

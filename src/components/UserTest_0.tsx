@@ -1,12 +1,16 @@
-// UserTest_0.tsx
-// Test: Practice each letter from home row individually
-// Goal: Learn home row letter positions
+// UserTest_1.tsx
+// Test: Repeat each letter from all rows
+// Goal: Commit all letter positions to memory
 
 import { useState, useEffect } from "react";
 import TextColor from "./TextColor";
 
+console.log("UserTest_0 component loaded");
+
 interface UserTest_0Props {
+  topRow: string;
   homeRow: string;
+  lowerRow: string;
   correctness: string[];
   lettersArray: string[][];
   setLettersArray: React.Dispatch<React.SetStateAction<string[][]>>;
@@ -17,8 +21,10 @@ interface UserTest_0Props {
   testLength: number;
 }
 
-export default function UserTest_0({
+export default function UserTest_1({
+  topRow,
   homeRow,
+  lowerRow,
   correctness,
   lettersArray,
   setLettersArray,
@@ -27,44 +33,115 @@ export default function UserTest_0({
   setUserLevel,
   testLength,
 }: UserTest_0Props) {
-  const [activeLetters, setActiveLetters] = useState<string[]>([]);
-  const [letterPosition, setLetterPosition] = useState(0);
+  const [activeLetterGroup, setActiveLetterGroup] = useState<string[]>([]);
+  const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
+  const digrams = [
+    "th",
+    "he",
+    "in",
+    "er",
+    "an",
+    "re",
+    "on",
+    "at",
+    "en",
+    "nd",
+    "ti",
+    "es",
+    "or",
+    "te",
+    "of",
+    "ed",
+    "is",
+    "it",
+    "al",
+    "ar",
+    "st",
+    "to",
+    "nt",
+    "ng",
+    "se",
+    "ha",
+    "as",
+    "ou",
+    "io",
+    "le",
+  ];
 
-  // Initialize home row letters
+  const trigrams = [
+    "the",
+    "and",
+    "ing",
+    "her",
+    "ere",
+    "ent",
+    "tha",
+    "nth",
+    "was",
+    "eth",
+    "for",
+    "dth",
+    "has",
+    "nce",
+    "edt",
+    "tis",
+    "oft",
+    "sth",
+    "men",
+    "res",
+    "ion",
+    "all",
+    "not",
+    "ver",
+    "his",
+    "thi",
+    "ter",
+    "ate",
+    "ers",
+    "hat",
+  ];
+
+  // Initialize letter group on mount or when rows change
   useEffect(() => {
-    const letters = homeRow.split("");
-    setActiveLetters(letters);
+    const groupLetters = [...digrams, ...trigrams];
+    const displayLetters = groupLetters.split("");
+    setActiveLetterGroup(displayLetters);
+
+    console.log({ digrams });
+    console.log({ displayLetters });
 
     // Initialize with first letter
-    if (letters.length > 0) {
-      setLettersArray(Array(testLength).fill([letters[0]]));
+    if (displayLetters.length > 0) {
+      setLettersArray(Array(testLength).fill([displayLetters[0]]));
     }
-  }, [homeRow, setLettersArray, testLength]);
+  }, [homeRow, topRow, lowerRow, setLettersArray, testLength]);
 
-  // Handle progression through home row letters
+  console.log({ lettersArray });
+
+  // Handle progression through letters
   useEffect(() => {
-    if (!activeLetters.length) return;
+    if (!activeLetterGroup.length) return;
 
-    // When cursor reaches the end of current letter practice
+    // When cursor reaches the end of current letter repetition
     if (cursorPosition === testLength && cursorPosition > 0) {
-      const nextPosition = letterPosition + 1;
+      const nextIndex = currentLetterIndex + 1;
 
-      if (nextPosition < activeLetters.length) {
+      if (nextIndex < activeLetterGroup.length) {
         // Move to next letter
-        setLetterPosition(nextPosition);
-        setLettersArray(Array(testLength).fill([activeLetters[nextPosition]]));
+        setCurrentLetterIndex(nextIndex);
+        setLettersArray(Array(testLength).fill([activeLetterGroup[nextIndex]]));
         setCursorPosition(0);
       } else {
-        // Completed all home row letters, advance to level 1
-        setUserLevel(1);
+        // Completed all letters in level 1, advance to level 2
+        setUserLevel(2);
         setCursorPosition(0);
-        setLetterPosition(0);
+        setCurrentLetterIndex(0);
       }
     }
   }, [
     cursorPosition,
-    letterPosition,
-    activeLetters,
+    currentLetterIndex,
+    activeLetterGroup,
     setLettersArray,
     setCursorPosition,
     setUserLevel,

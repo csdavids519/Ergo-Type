@@ -1,6 +1,6 @@
 // UserTest_1.tsx
-// Test: Repeat each letter from all rows
-// Goal: Commit all letter positions to memory
+// Test: repeat common letter combinations
+// Goal: increase speed with common letter combinations
 
 import { useState, useEffect } from "react";
 import TextColor from "./TextColor";
