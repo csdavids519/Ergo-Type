@@ -4,6 +4,7 @@
 
 import { useState, useEffect } from "react";
 import TextColor from "./TextColor";
+import test from "node:test";
 
 console.log("UserTest_0 component loaded");
 
@@ -103,28 +104,34 @@ export default function UserTest_1({
 
   // Initialize letter group on mount or when rows change
   useEffect(() => {
-    const groupLetters = [...digrams, ...trigrams];
-    const displayLetters = groupLetters.split("");
-    setActiveLetterGroup(displayLetters);
+    const splitLetters = digrams[currentLetterIndex].split("");
+    console.log("splitLettters:", { splitLetters });
+    const displayLetters = Array(10)
+      .fill(null)
+      .flatMap(() => [...splitLetters, " "]);
+    console.log("displayLetters:", { displayLetters });
 
-    console.log({ digrams });
-    console.log({ displayLetters });
+    // workaround - group names to be updated
+    setActiveLetterGroup(displayLetters);
 
     // Initialize with first letter
     if (displayLetters.length > 0) {
-      setLettersArray(Array(testLength).fill([displayLetters[0]]));
+      setLettersArray(displayLetters);
     }
-  }, [homeRow, topRow, lowerRow, setLettersArray, testLength]);
+  }, [setLettersArray, currentLetterIndex, testLength]);
 
-  console.log({ lettersArray });
-
+  console.log("lettersArray:", { lettersArray });
+  console.log("cursorPosition:", { cursorPosition });
+  console.log("currentLetterIndex:", { currentLetterIndex });
+  console.log("testLength:", { testLength });
   // Handle progression through letters
   useEffect(() => {
     if (!activeLetterGroup.length) return;
 
     // When cursor reaches the end of current letter repetition
-    if (cursorPosition === testLength && cursorPosition > 0) {
+    if (cursorPosition === digrams.length && cursorPosition > 0) {
       const nextIndex = currentLetterIndex + 1;
+      console.log("nextIndex:", { nextIndex });
 
       if (nextIndex < activeLetterGroup.length) {
         // Move to next letter
