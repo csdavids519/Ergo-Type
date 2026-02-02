@@ -15,10 +15,9 @@ export default function HomePage() {
   } = useKeyboardLayout();
 
   return (
-    <div className="min-h-screen min-w-screen bg-linear-to-br from-black to-indigo-700 flex items-center justify-center">
+    <div className="min-h-screen min-w-screen bg-linear-to-br from-black to-gray-700 flex items-center justify-center">
       <div className="text-center text-slate-200">
-        <h1 className="text-6xl font-bold mb-4">Ergo_Type</h1>
-        <p className="text-xl mb-8">Welcome.</p>
+        <h1 className="text-6xl font-bold mb-4 text-blue-700">Ergo_Type</h1>
         <KeyLayout
           topRow={topRow}
           homeRow={homeRow}

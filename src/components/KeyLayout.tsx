@@ -41,28 +41,28 @@ export default function KeyLayout({
           <div>
             <input
               type="text"
-              className="m-1 border-2"
+              className="text-center px-10 py-3 mb-5 border-2 text-2xl font-bold"
               value={topRow}
-              placeholder="Enter your top row keys"
-              onChange={(e) => setTopRow(e.target.value)}
+              placeholder="Enter your TOP row keys"
+              onChange={(e) => setTopRow(e.target.value.toUpperCase())}
             />
           </div>
           <div>
             <input
               type="text"
-              className="m-1 border-2"
+              className="text-center px-10 py-3 mb-5 border-2 text-2xl font-bold"
               value={homeRow}
-              placeholder="Enter your home row keys"
-              onChange={(e) => setHomeRow(e.target.value)}
+              placeholder="Enter your HOME row keys"
+              onChange={(e) => setHomeRow(e.target.value.toUpperCase())}
             />
           </div>
           <div>
             <input
               type="text"
-              className="m-1 border-2"
+              className="text-center px-10 py-3 mb-5 border-2 text-2xl font-bold"
               value={lowerRow}
-              placeholder="Enter your lower row keys"
-              onChange={(e) => setLowerRow(e.target.value)}
+              placeholder="Enter your LOWER row keys"
+              onChange={(e) => setLowerRow(e.target.value.toUpperCase())}
             />
           </div>
           <button className="m-2" type="submit">
