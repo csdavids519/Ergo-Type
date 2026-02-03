@@ -1,17 +1,15 @@
 // Manages the display of tests and advancement of user level
-
+import { useState } from "react";
 import UserTest_0 from "./UserTest_0";
 import UserTest_1 from "./UserTest_1";
 
 console.log("TextDisplay component loaded");
 interface TextDisplayProps {
   correctness: string[];
-  lettersArray: string[][];
-  setLettersArray: React.Dispatch<React.SetStateAction<string[][]>>;
+  displayText: string[];
+  setDisplayText: React.Dispatch<React.SetStateAction<string[]>>;
   cursorPosition: number;
   setCursorPosition: React.Dispatch<React.SetStateAction<number>>;
-  userLevel: number;
-  setUserLevel: React.Dispatch<React.SetStateAction<number>>;
   topRow: string;
   homeRow: string;
   lowerRow: string;
@@ -19,17 +17,15 @@ interface TextDisplayProps {
 
 export default function TextDisplay({
   correctness,
-  lettersArray,
-  setLettersArray,
+  displayText,
+  setDisplayText,
   cursorPosition,
   setCursorPosition,
-  userLevel,
-  setUserLevel,
   topRow,
   homeRow,
   lowerRow,
 }: TextDisplayProps) {
-  const testLength = 5;
+  const [userLevel, setUserLevel] = useState(0);
   const userMessage = `Level ${userLevel}`;
 
   // Render appropriate test based on level
@@ -42,13 +38,12 @@ export default function TextDisplay({
         homeRow={homeRow}
         lowerRow={lowerRow}
         correctness={correctness}
-        lettersArray={lettersArray}
-        setLettersArray={setLettersArray}
+        displayText={displayText}
+        setDisplayText={setDisplayText}
         cursorPosition={cursorPosition}
         setCursorPosition={setCursorPosition}
         userLevel={userLevel}
         setUserLevel={setUserLevel}
-        testLength={testLength}
       />
     );
   } else if (userLevel === 1) {
@@ -58,13 +53,12 @@ export default function TextDisplay({
         homeRow={homeRow}
         lowerRow={lowerRow}
         correctness={correctness}
-        lettersArray={lettersArray}
-        setLettersArray={setLettersArray}
+        displayText={displayText}
+        setDisplayText={setDisplayText}
         cursorPosition={cursorPosition}
         setCursorPosition={setCursorPosition}
         userLevel={userLevel}
         setUserLevel={setUserLevel}
-        testLength={testLength}
       />
     );
   }

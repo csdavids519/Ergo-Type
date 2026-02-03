@@ -8,13 +8,13 @@ function TypingLesson() {
 
   // position tracking states
   const [cursorPosition, setCursorPosition] = useState(0);
-  const [lettersArray, setLettersArray] = useState<string[][]>([]);
+  const [displayText, setDisplayText] = useState<string[]>([]);
   const [correctness, setCorrectness] = useState(() =>
-    Array(lettersArray.length).fill("static"),
+    Array(displayText.length).fill("static"),
   );
-
-  // track user learning level
-  const [userLevel, setUserLevel] = useState(0);
+  console.log("cursorPosition: ", { cursorPosition });
+  console.log("correctness: ", { correctness });
+  console.log("displayText: ", { displayText });
 
   return (
     <>
@@ -22,12 +22,10 @@ function TypingLesson() {
       <div className="m-5 p-5 rounded-lg border-2 border-indigo-700">
         <TextDisplay
           correctness={correctness}
-          lettersArray={lettersArray}
-          setLettersArray={setLettersArray}
+          displayText={displayText}
+          setDisplayText={setDisplayText}
           cursorPosition={cursorPosition}
           setCursorPosition={setCursorPosition}
-          userLevel={userLevel}
-          setUserLevel={setUserLevel}
           topRow={topRow}
           homeRow={homeRow}
           lowerRow={lowerRow}
@@ -37,7 +35,7 @@ function TypingLesson() {
         setCorrectness={setCorrectness}
         setCursorPosition={setCursorPosition}
         cursorPosition={cursorPosition}
-        lettersArray={lettersArray}
+        displayText={displayText}
       />
     </>
   );

@@ -1,16 +1,13 @@
-// UserTest_1.tsx
-// Test: repeat common letter combinations
-// Goal: increase speed with common letter combinations
+// UserTest_2.tsx
+// Test: Repeat each letter from all rows
+// Goal: Commit all letter positions to memory
 
 import { useState, useEffect } from "react";
 import TextColor from "./TextColor";
 
-console.log("UserTest_0 component loaded");
+console.log("UserTest_2 component loaded");
 
-interface UserTest_1Props {
-  topRow: string;
-  homeRow: string;
-  lowerRow: string;
+interface UserTest_0Props {
   correctness: string[];
   displayText: string[];
   setDisplayText: React.Dispatch<React.SetStateAction<string[]>>;
@@ -18,45 +15,83 @@ interface UserTest_1Props {
   setCursorPosition: React.Dispatch<React.SetStateAction<number>>;
   userLevel: number;
   setUserLevel: React.Dispatch<React.SetStateAction<number>>;
+  testLength: number;
 }
 
-export default function UserTest_1({
-  topRow,
-  homeRow,
-  lowerRow,
+export default function UserTest_2({
   correctness,
   displayText,
   setDisplayText,
   cursorPosition,
   setCursorPosition,
   setUserLevel,
-}: UserTest_1Props) {
+  testLength,
+}: UserTest_0Props) {
   const [activeLetterGroup, setActiveLetterGroup] = useState<string[]>([]);
   const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
-  const testLength = 0;
+
+  const trigrams = [
+    "the",
+    "and",
+    "ing",
+    "her",
+    "ere",
+    "ent",
+    "tha",
+    "nth",
+    "was",
+    "eth",
+    "for",
+    "dth",
+    "has",
+    "nce",
+    "edt",
+    "tis",
+    "oft",
+    "sth",
+    "men",
+    "res",
+    "ion",
+    "all",
+    "not",
+    "ver",
+    "his",
+    "thi",
+    "ter",
+    "ate",
+    "ers",
+    "hat",
+  ];
 
   // Initialize letter group on mount or when rows change
   useEffect(() => {
-    const groupLetters = homeRow + topRow + lowerRow;
+    const splitLetters = trigrams[currentLetterIndex].split("");
+    console.log("splitLettters:", { splitLetters });
+    const displayLetters = Array(3)
+      .fill(null)
+      .flatMap(() => [...splitLetters, " "]);
+    // console.log("displayLetters:", { displayLetters });
 
-    console.log("homeRow:", { homeRow });
-    console.log("groupLetters:", { groupLetters });
-    const letters = groupLetters.split("");
-    setActiveLetterGroup(letters);
+    // workaround - group names to be updated
+    setActiveLetterGroup(displayLetters);
 
     // Initialize with first letter
-    if (letters.length > 0) {
-      setDisplayText(Array(testLength).fill([letters[0]]));
+    if (displayLetters.length > 0) {
+      setDisplayText(displayLetters);
     }
-  }, [homeRow, topRow, lowerRow, setDisplayText, testLength]);
+  }, [setDisplayText, currentLetterIndex, testLength]);
+
+  console.log("displayText:", { displayText });
+  console.log("cursorPosition:", { cursorPosition });
 
   // Handle progression through letters
   useEffect(() => {
     if (!activeLetterGroup.length) return;
 
     // When cursor reaches the end of current letter repetition
-    if (cursorPosition === testLength && cursorPosition > 0) {
+    if (cursorPosition === trigrams.length && cursorPosition > 0) {
       const nextIndex = currentLetterIndex + 1;
+      console.log("nextIndex:", { nextIndex });
 
       if (nextIndex < activeLetterGroup.length) {
         // Move to next letter
@@ -65,7 +100,7 @@ export default function UserTest_1({
         setCursorPosition(0);
       } else {
         // Completed all letters in level 1, advance to level 2
-        setUserLevel(1);
+        setUserLevel(0);
         setCursorPosition(0);
         setCurrentLetterIndex(0);
       }
@@ -76,7 +111,7 @@ export default function UserTest_1({
     activeLetterGroup,
     setDisplayText,
     setCursorPosition,
-    setUserLevel,
+    testLength,
   ]);
 
   return (

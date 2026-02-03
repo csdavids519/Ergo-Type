@@ -5,28 +5,28 @@ interface KeyInputProps {
   setCorrectness: React.Dispatch<React.SetStateAction<string[]>>;
   setCursorPosition: React.Dispatch<React.SetStateAction<number>>;
   cursorPosition: number;
-  lettersArray: string[][];
+  displayText: string[];
 }
 
 export default function KeyInput({
   setCorrectness,
   setCursorPosition,
   cursorPosition,
-  lettersArray,
+  displayText,
 }: KeyInputProps) {
   useEffect(() => {
     function handleKeyPress(event: KeyboardEvent) {
       if (
-        cursorPosition >= lettersArray.length ||
-        !lettersArray[cursorPosition]
+        cursorPosition >= displayText.length ||
+        !displayText[cursorPosition]
       ) {
         return;
       }
 
       setCorrectness((prev) => {
         const next = [...prev];
-        if (lettersArray[cursorPosition][0] === event.key) {
-          console.log("Target: ", lettersArray[cursorPosition]);
+        if (displayText[cursorPosition] === event.key) {
+          console.log("Target: ", displayText[cursorPosition]);
           next[cursorPosition] = "correct";
           setCursorPosition((x) => x + 1);
         } else {
@@ -41,7 +41,7 @@ export default function KeyInput({
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
-  }, [cursorPosition, lettersArray, setCorrectness, setCursorPosition]);
+  }, [cursorPosition, displayText, setCorrectness, setCursorPosition]);
 
   return null;
 }

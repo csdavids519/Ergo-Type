@@ -4,7 +4,6 @@
 
 import { useState, useEffect } from "react";
 import TextColor from "./TextColor";
-import test from "node:test";
 
 console.log("UserTest_1 component loaded");
 
@@ -13,8 +12,8 @@ interface UserTest_0Props {
   homeRow: string;
   lowerRow: string;
   correctness: string[];
-  lettersArray: string[][];
-  setLettersArray: React.Dispatch<React.SetStateAction<string[][]>>;
+  displayText: string[];
+  setDisplayText: React.Dispatch<React.SetStateAction<string[]>>;
   cursorPosition: number;
   setCursorPosition: React.Dispatch<React.SetStateAction<number>>;
   userLevel: number;
@@ -27,8 +26,8 @@ export default function UserTest_1({
   homeRow,
   lowerRow,
   correctness,
-  lettersArray,
-  setLettersArray,
+  displayText,
+  setDisplayText,
   cursorPosition,
   setCursorPosition,
   setUserLevel,
@@ -103,7 +102,7 @@ export default function UserTest_1({
   // Initialize letter group on mount or when rows change
   useEffect(() => {
     const splitLetters = digrams[currentLetterIndex].split("");
-    // console.log("splitLettters:", { splitLetters });
+    console.log("splitLettters:", { splitLetters });
     const displayLetters = Array(3)
       .fill(null)
       .flatMap(() => [...splitLetters, " "]);
@@ -114,11 +113,11 @@ export default function UserTest_1({
 
     // Initialize with first letter
     if (displayLetters.length > 0) {
-      setLettersArray(displayLetters);
+      setDisplayText(displayLetters);
     }
-  }, [setLettersArray, currentLetterIndex, testLength]);
+  }, [setDisplayText, currentLetterIndex, testLength]);
 
-  console.log("lettersArray:", { lettersArray });
+  console.log("displayText:", { displayText });
   console.log("cursorPosition:", { cursorPosition });
 
   // Handle progression through letters
@@ -133,11 +132,11 @@ export default function UserTest_1({
       if (nextIndex < activeLetterGroup.length) {
         // Move to next letter
         setCurrentLetterIndex(nextIndex);
-        setLettersArray(Array(testLength).fill([activeLetterGroup[nextIndex]]));
+        setDisplayText(Array(testLength).fill([activeLetterGroup[nextIndex]]));
         setCursorPosition(0);
       } else {
         // Completed all letters in level 1, advance to level 2
-        setUserLevel(2);
+        setUserLevel(0);
         setCursorPosition(0);
         setCurrentLetterIndex(0);
       }
@@ -146,15 +145,14 @@ export default function UserTest_1({
     cursorPosition,
     currentLetterIndex,
     activeLetterGroup,
-    setLettersArray,
+    setDisplayText,
     setCursorPosition,
-    setUserLevel,
     testLength,
   ]);
 
   return (
     <>
-      {lettersArray.map((letter, index) => (
+      {displayText.map((letter, index) => (
         <span
           key={index}
           className={`target-text ${TextColor(
