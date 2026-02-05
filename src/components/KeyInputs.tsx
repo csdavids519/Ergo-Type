@@ -25,8 +25,9 @@ export default function KeyInput({
 
       setCorrectness((prev) => {
         const next = [...prev];
-        if (displayText[cursorPosition] === event.key) {
-          console.log("Target: ", displayText[cursorPosition]);
+        console.log("Target: ", displayText[cursorPosition][0]);
+        console.log("Key: ", event.key);
+        if (displayText[cursorPosition][0] === event.key) {
           next[cursorPosition] = "correct";
           setCursorPosition((x) => x + 1);
         } else {

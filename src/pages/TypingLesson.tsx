@@ -22,6 +22,7 @@ function TypingLesson() {
       <div className="m-5 p-5 rounded-lg border-2 border-indigo-700">
         <TextDisplay
           correctness={correctness}
+          setCorrectness={setCorrectness}
           displayText={displayText}
           setDisplayText={setDisplayText}
           cursorPosition={cursorPosition}

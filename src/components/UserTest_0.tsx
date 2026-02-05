@@ -1,4 +1,4 @@
-// UserTest_1.tsx
+// UserTest_0.tsx
 // Test: repeat common letter combinations
 // Goal: increase speed with common letter combinations
 
@@ -12,6 +12,7 @@ interface UserTest_1Props {
   homeRow: string;
   lowerRow: string;
   correctness: string[];
+  setCorrectness: React.Dispatch<React.SetStateAction<string[]>>;
   displayText: string[];
   setDisplayText: React.Dispatch<React.SetStateAction<string[]>>;
   cursorPosition: number;
@@ -20,52 +21,57 @@ interface UserTest_1Props {
   setUserLevel: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default function UserTest_1({
+export default function UserTest_0({
   topRow,
   homeRow,
   lowerRow,
   correctness,
+  setCorrectness,
   displayText,
   setDisplayText,
   cursorPosition,
   setCursorPosition,
   setUserLevel,
 }: UserTest_1Props) {
-  const [activeLetterGroup, setActiveLetterGroup] = useState<string[]>([]);
+  console.log("UserTest_0 component RUNNING");
+  // const testGroup = (homeRow + topRow + lowerRow).split("");
+  const targetGroup = "ASETFMNRLOQWPGBJYIUZXDCVKH".split("");
+  console.log("targetGroup Test0:", { targetGroup });
+  const [targetGroupIndex, setTargetGroupIndex] = useState(0);
   const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
-  const testLength = 0;
+
+  const testLength = 5;
+  let nextLetterIndex = 0;
+  const [testNumber, setTestNumber] = useState(0);
 
   // Initialize letter group on mount or when rows change
   useEffect(() => {
-    const groupLetters = homeRow + topRow + lowerRow;
-
-    console.log("homeRow:", { homeRow });
-    console.log("groupLetters:", { groupLetters });
-    const letters = groupLetters.split("");
-    setActiveLetterGroup(letters);
-
     // Initialize with first letter
-    if (letters.length > 0) {
-      setDisplayText(Array(testLength).fill([letters[0]]));
+    if (targetGroup.length > 0) {
+      setDisplayText(Array(testLength).fill([targetGroup[0]]));
     }
-  }, [homeRow, topRow, lowerRow, setDisplayText, testLength]);
+  }, [setDisplayText, testLength]);
 
   // Handle progression through letters
   useEffect(() => {
-    if (!activeLetterGroup.length) return;
+    if (!targetGroup.length) return;
 
     // When cursor reaches the end of current letter repetition
     if (cursorPosition === testLength && cursorPosition > 0) {
-      const nextIndex = currentLetterIndex + 1;
+      if (testNumber === 0) {
+        nextLetterIndex = currentLetterIndex + 1;
+      } else {
+        nextLetterIndex = Math.floor(Math.random() * targetGroup.length);
+      }
 
-      if (nextIndex < activeLetterGroup.length) {
+      if (nextLetterIndex < targetGroup.length) {
         // Move to next letter
-        setCurrentLetterIndex(nextIndex);
-        setDisplayText(Array(testLength).fill([activeLetterGroup[nextIndex]]));
+        setCurrentLetterIndex(nextLetterIndex);
+        setDisplayText(Array(testLength).fill([targetGroup[nextLetterIndex]]));
         setCursorPosition(0);
       } else {
         // Completed all letters in level 1, advance to level 2
-        setUserLevel(1);
+        setTestNumber(1);
         setCursorPosition(0);
         setCurrentLetterIndex(0);
       }
@@ -73,7 +79,6 @@ export default function UserTest_1({
   }, [
     cursorPosition,
     currentLetterIndex,
-    activeLetterGroup,
     setDisplayText,
     setCursorPosition,
     setUserLevel,

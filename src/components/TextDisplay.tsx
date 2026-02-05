@@ -6,6 +6,7 @@ import UserTest_1 from "./UserTest_1";
 console.log("TextDisplay component loaded");
 interface TextDisplayProps {
   correctness: string[];
+  setCorrectness: React.Dispatch<React.SetStateAction<string[]>>;
   displayText: string[];
   setDisplayText: React.Dispatch<React.SetStateAction<string[]>>;
   cursorPosition: number;
@@ -17,6 +18,7 @@ interface TextDisplayProps {
 
 export default function TextDisplay({
   correctness,
+  setCorrectness,
   displayText,
   setDisplayText,
   cursorPosition,
@@ -26,6 +28,7 @@ export default function TextDisplay({
   lowerRow,
 }: TextDisplayProps) {
   const [userLevel, setUserLevel] = useState(0);
+  console.log("userLevel: ", { userLevel });
   const userMessage = `Level ${userLevel}`;
 
   // Render appropriate test based on level
@@ -38,6 +41,7 @@ export default function TextDisplay({
         homeRow={homeRow}
         lowerRow={lowerRow}
         correctness={correctness}
+        setCorrectness={setCorrectness}
         displayText={displayText}
         setDisplayText={setDisplayText}
         cursorPosition={cursorPosition}
@@ -53,6 +57,7 @@ export default function TextDisplay({
         homeRow={homeRow}
         lowerRow={lowerRow}
         correctness={correctness}
+        setCorrectness={setCorrectness}
         displayText={displayText}
         setDisplayText={setDisplayText}
         cursorPosition={cursorPosition}

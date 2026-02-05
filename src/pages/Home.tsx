@@ -1,6 +1,4 @@
-import { Link } from "react-router-dom";
 import { useKeyboardLayout } from "../contexts/KeyboardLayoutContext";
-import KeyLayout from "../components/KeyLayout";
 import { type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 
