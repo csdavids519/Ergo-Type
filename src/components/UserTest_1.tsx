@@ -1,154 +1,74 @@
 // UserTest_1.tsx
-// Test: Repeat each letter from all rows
-// Goal: Commit all letter positions to memory
+// Test: repeat common letter combinations
+// Goal: increase speed with common letter combinations
 
 import { useState, useEffect } from "react";
 import TextColor from "./TextColor";
 
 console.log("UserTest_1 component loaded");
 
-interface UserTest_0Props {
+interface UserTest_1Props {
   topRow: string;
   homeRow: string;
   lowerRow: string;
   correctness: string[];
+  setCorrectness: React.Dispatch<React.SetStateAction<string[]>>;
   displayText: string[];
   setDisplayText: React.Dispatch<React.SetStateAction<string[]>>;
   cursorPosition: number;
   setCursorPosition: React.Dispatch<React.SetStateAction<number>>;
   userLevel: number;
   setUserLevel: React.Dispatch<React.SetStateAction<number>>;
-  testLength: number;
 }
 
 export default function UserTest_1({
-  topRow,
-  homeRow,
-  lowerRow,
   correctness,
+  setCorrectness,
   displayText,
   setDisplayText,
   cursorPosition,
   setCursorPosition,
   setUserLevel,
-  testLength,
-}: UserTest_0Props) {
-  const [activeLetterGroup, setActiveLetterGroup] = useState<string[]>([]);
+}: UserTest_1Props) {
+  console.log("UserTest_1 component RUNNING");
+  // const testGroup = (homeRow + topRow + lowerRow).split("");
+  const targetGroup = "ASETF".split("");
+  console.log({ targetGroup });
   const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
-  const digrams = ["th", "he", "in", "er"];
+  const testLength = 5;
+  const [repCount, setRepCount] = useState(0);
+  const maxRepCount = 5; // targetGroup.length
 
-  /*
-    "an",
-    "re",
-    "on",
-    "at",
-    "en",
-    "nd",
-    "ti",
-    "es",
-    "or",
-    "te",
-    "of",
-    "ed",
-    "is",
-    "it",
-    "al",
-    "ar",
-    "st",
-    "to",
-    "nt",
-    "ng",
-    "se",
-    "ha",
-    "as",
-    "ou",
-    "io",
-    "le",
-*/
-
-  const trigrams = [
-    "the",
-    "and",
-    "ing",
-    "her",
-    "ere",
-    "ent",
-    "tha",
-    "nth",
-    "was",
-    "eth",
-    "for",
-    "dth",
-    "has",
-    "nce",
-    "edt",
-    "tis",
-    "oft",
-    "sth",
-    "men",
-    "res",
-    "ion",
-    "all",
-    "not",
-    "ver",
-    "his",
-    "thi",
-    "ter",
-    "ate",
-    "ers",
-    "hat",
-  ];
-
-  // Initialize letter group on mount or when rows change
   useEffect(() => {
-    const splitLetters = digrams[currentLetterIndex].split("");
-    console.log("splitLettters:", { splitLetters });
-    const displayLetters = Array(3)
-      .fill(null)
-      .flatMap(() => [...splitLetters, " "]);
-    // console.log("displayLetters:", { displayLetters });
+    // set initial letter display
+    setDisplayText(Array(testLength).fill([targetGroup[0]]));
+  }, []);
 
-    // workaround - group names to be updated
-    setActiveLetterGroup(displayLetters);
-
-    // Initialize with first letter
-    if (displayLetters.length > 0) {
-      setDisplayText(displayLetters);
-    }
-  }, [setDisplayText, currentLetterIndex, testLength]);
-
-  console.log("displayText:", { displayText });
-  console.log("cursorPosition:", { cursorPosition });
-
-  // Handle progression through letters
   useEffect(() => {
-    if (!activeLetterGroup.length) return;
-
-    // When cursor reaches the end of current letter repetition
-    if (cursorPosition === digrams.length && cursorPosition > 0) {
-      const nextIndex = currentLetterIndex + 1;
-      console.log("nextIndex:", { nextIndex });
-
-      if (nextIndex < activeLetterGroup.length) {
-        // Move to next letter
+    // check cursor reaches end of current test length
+    if (cursorPosition === testLength && cursorPosition > 0) {
+      // set letter index random. count how mahy times we run a new letter
+      const nextIndex = Math.floor(Math.random() * targetGroup.length);
+      setRepCount((repCount) => repCount + 1);
+      // check not at end of rep count
+      if (repCount < maxRepCount) {
+        // move to next letter
         setCurrentLetterIndex(nextIndex);
-        setDisplayText(Array(testLength).fill([activeLetterGroup[nextIndex]]));
+        setDisplayText(Array(testLength).fill([targetGroup[nextIndex]]));
         setCursorPosition(0);
-      } else {
-        // Completed all letters in level 1, advance to level 2
-        setUserLevel(0);
+        setCorrectness(["static"]);
+        console.log({ currentLetterIndex });
+      }
+      // at end of group target
+      else {
+        // set user to next test
+        setUserLevel(2);
         setCursorPosition(0);
+        setCorrectness(["static"]);
         setCurrentLetterIndex(0);
       }
     }
-  }, [
-    cursorPosition,
-    currentLetterIndex,
-    activeLetterGroup,
-    setDisplayText,
-    setCursorPosition,
-    testLength,
-  ]);
+  }, [cursorPosition, setDisplayText]);
 
   return (
     <>

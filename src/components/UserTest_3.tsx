@@ -1,16 +1,13 @@
-// UserTest_1.tsx
+// UserTest_2.tsx
 // Test: Repeat each letter from all rows
 // Goal: Commit all letter positions to memory
 
 import { useState, useEffect } from "react";
 import TextColor from "./TextColor";
 
-console.log("UserTest_1 component loaded");
+console.log("UserTest_2 component loaded");
 
 interface UserTest_0Props {
-  topRow: string;
-  homeRow: string;
-  lowerRow: string;
   correctness: string[];
   displayText: string[];
   setDisplayText: React.Dispatch<React.SetStateAction<string[]>>;
@@ -21,10 +18,7 @@ interface UserTest_0Props {
   testLength: number;
 }
 
-export default function UserTest_1({
-  topRow,
-  homeRow,
-  lowerRow,
+export default function UserTest_2({
   correctness,
   displayText,
   setDisplayText,
@@ -35,36 +29,6 @@ export default function UserTest_1({
 }: UserTest_0Props) {
   const [activeLetterGroup, setActiveLetterGroup] = useState<string[]>([]);
   const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
-  const digrams = ["th", "he", "in", "er"];
-
-  /*
-    "an",
-    "re",
-    "on",
-    "at",
-    "en",
-    "nd",
-    "ti",
-    "es",
-    "or",
-    "te",
-    "of",
-    "ed",
-    "is",
-    "it",
-    "al",
-    "ar",
-    "st",
-    "to",
-    "nt",
-    "ng",
-    "se",
-    "ha",
-    "as",
-    "ou",
-    "io",
-    "le",
-*/
 
   const trigrams = [
     "the",
@@ -101,7 +65,7 @@ export default function UserTest_1({
 
   // Initialize letter group on mount or when rows change
   useEffect(() => {
-    const splitLetters = digrams[currentLetterIndex].split("");
+    const splitLetters = trigrams[currentLetterIndex].split("");
     console.log("splitLettters:", { splitLetters });
     const displayLetters = Array(3)
       .fill(null)
@@ -125,7 +89,7 @@ export default function UserTest_1({
     if (!activeLetterGroup.length) return;
 
     // When cursor reaches the end of current letter repetition
-    if (cursorPosition === digrams.length && cursorPosition > 0) {
+    if (cursorPosition === trigrams.length && cursorPosition > 0) {
       const nextIndex = currentLetterIndex + 1;
       console.log("nextIndex:", { nextIndex });
 
