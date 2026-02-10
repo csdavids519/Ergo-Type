@@ -3,6 +3,7 @@ import { useState } from "react";
 import UserTest_0 from "./UserTest_0";
 import UserTest_1 from "./UserTest_1";
 import UserTest_2 from "./UserTest_2";
+import UserTest_3 from "./UserTest_3";
 
 console.log("TextDisplay component loaded");
 interface TextDisplayProps {
@@ -70,6 +71,19 @@ export default function TextDisplay({
   } else if (userLevel === 2) {
     renderTest = (
       <UserTest_2
+        correctness={correctness}
+        setCorrectness={setCorrectness}
+        displayText={displayText}
+        setDisplayText={setDisplayText}
+        cursorPosition={cursorPosition}
+        setCursorPosition={setCursorPosition}
+        userLevel={userLevel}
+        setUserLevel={setUserLevel}
+      />
+    );
+  } else if (userLevel === 3) {
+    renderTest = (
+      <UserTest_3
         correctness={correctness}
         setCorrectness={setCorrectness}
         displayText={displayText}

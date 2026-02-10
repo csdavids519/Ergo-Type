@@ -7,31 +7,33 @@ import TextColor from "./TextColor";
 
 console.log("UserTest_2 component loaded");
 
-interface UserTest_0Props {
+interface UserTest_2Props {
   correctness: string[];
+  setCorrectness: React.Dispatch<React.SetStateAction<string[]>>;
   displayText: string[];
   setDisplayText: React.Dispatch<React.SetStateAction<string[]>>;
   cursorPosition: number;
   setCursorPosition: React.Dispatch<React.SetStateAction<number>>;
   userLevel: number;
   setUserLevel: React.Dispatch<React.SetStateAction<number>>;
-  testLength: number;
 }
 
 export default function UserTest_2({
   correctness,
+  setCorrectness,
   displayText,
   setDisplayText,
   cursorPosition,
   setCursorPosition,
   setUserLevel,
-  testLength,
-}: UserTest_0Props) {
-  const [activeLetterGroup, setActiveLetterGroup] = useState<string[]>([]);
-  const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
+}: UserTest_2Props) {
+  const [currentTargetIndex, setCurrentTargetIndex] = useState(0);
+  const targetGroup = ["the", "and", "ing", "her"];
+  const targetGroupUpper = targetGroup.map((x) => x.toUpperCase());
+  const testLength = 5;
 
-  const trigrams = [
-    "the",
+  /*
+     "the",
     "and",
     "ing",
     "her",
@@ -61,58 +63,53 @@ export default function UserTest_2({
     "ate",
     "ers",
     "hat",
-  ];
+  */
 
-  // Initialize letter group on mount or when rows change
+  // set initial letter display
   useEffect(() => {
-    const splitLetters = trigrams[currentLetterIndex].split("");
-    console.log("splitLettters:", { splitLetters });
-    const displayLetters = Array(3)
-      .fill(null)
-      .flatMap(() => [...splitLetters, " "]);
-    // console.log("displayLetters:", { displayLetters });
+    const splitLetters = targetGroupUpper[0].split("");
+    setDisplayText(
+      Array(testLength)
+        .fill(null)
+        .flatMap(() => [...splitLetters, " "]),
+    );
+  }, [setDisplayText]);
 
-    // workaround - group names to be updated
-    setActiveLetterGroup(displayLetters);
-
-    // Initialize with first letter
-    if (displayLetters.length > 0) {
-      setDisplayText(displayLetters);
-    }
-  }, [setDisplayText, currentLetterIndex, testLength]);
-
+  console.log("targetGroup:", { targetGroupUpper });
   console.log("displayText:", { displayText });
   console.log("cursorPosition:", { cursorPosition });
 
   // Handle progression through letters
   useEffect(() => {
-    if (!activeLetterGroup.length) return;
+    // check cursor reaches end of current test length
+    if (cursorPosition === displayText.length && cursorPosition > 0) {
+      const nextIndex = currentTargetIndex + 1;
 
-    // When cursor reaches the end of current letter repetition
-    if (cursorPosition === trigrams.length && cursorPosition > 0) {
-      const nextIndex = currentLetterIndex + 1;
-      console.log("nextIndex:", { nextIndex });
+      // check not at end of target group
+      if (nextIndex < targetGroup.length) {
+        // move to next letter
+        const splitLetters = targetGroupUpper[nextIndex].split("");
+        setDisplayText(
+          Array(testLength)
+            .fill(null)
+            .flatMap(() => [...splitLetters, " "]),
+        );
 
-      if (nextIndex < activeLetterGroup.length) {
-        // Move to next letter
-        setCurrentLetterIndex(nextIndex);
-        setDisplayText(Array(testLength).fill([activeLetterGroup[nextIndex]]));
+        setCurrentTargetIndex(nextIndex);
         setCursorPosition(0);
-      } else {
-        // Completed all letters in level 1, advance to level 2
-        setUserLevel(0);
+        setCorrectness(["static"]);
+        console.log({ currentTargetIndex });
+      }
+      // check if at end of group target
+      else {
+        // set user to next test
+        setUserLevel(3);
         setCursorPosition(0);
-        setCurrentLetterIndex(0);
+        setCorrectness(["static"]);
+        setCurrentTargetIndex(0);
       }
     }
-  }, [
-    cursorPosition,
-    currentLetterIndex,
-    activeLetterGroup,
-    setDisplayText,
-    setCursorPosition,
-    testLength,
-  ]);
+  }, [cursorPosition, setDisplayText]);
 
   return (
     <>
