@@ -28,12 +28,42 @@ export default function UserTest_2({
   setUserLevel,
 }: UserTest_2Props) {
   const [currentTargetIndex, setCurrentTargetIndex] = useState(0);
-  const targetGroup = ["the", "and", "ing", "her"];
+  const targetGroup = [
+    "the",
+    "ing",
+    "her",
+    "ere",
+    "ent",
+    "tha",
+    "nth",
+    "was",
+    "eth",
+    "for",
+    "dth",
+    "has",
+    "nce",
+    "edt",
+    "tis",
+    "oft",
+    "sth",
+    "men",
+    "res",
+    "ion",
+    "all",
+    "not",
+    "ver",
+    "his",
+    "thi",
+    "ter",
+    "ate",
+    "ers",
+    "hat",
+  ];
   const targetGroupUpper = targetGroup.map((x) => x.toUpperCase());
   const testLength = 5;
 
   /*
-     "the",
+    "the",
     "and",
     "ing",
     "her",
@@ -68,15 +98,10 @@ export default function UserTest_2({
   // set initial letter display
   useEffect(() => {
     const splitLetters = targetGroupUpper[0].split("");
-    // setDisplayText(
-    //   Array(testLength)
-    //     .fill(null)
-    //     .flatMap(() => [...splitLetters, " "]),
-    // );
     setDisplayText(
       Array(testLength)
         .fill(null)
-        .flatMap(() => [...splitLetters]),
+        .flatMap(() => [...splitLetters, " "]),
     );
   }, [setDisplayText]);
 
@@ -97,7 +122,7 @@ export default function UserTest_2({
         setDisplayText(
           Array(testLength)
             .fill(null)
-            .flatMap(() => [...splitLetters]),
+            .flatMap(() => [...splitLetters, " "]),
         );
 
         setCurrentTargetIndex(nextIndex);

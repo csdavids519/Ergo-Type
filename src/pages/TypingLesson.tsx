@@ -19,7 +19,7 @@ export default function TypingLesson() {
   console.log("cursorPosition: ", { cursorPosition });
   console.log("correctness: ", { correctness });
   console.log("displayText: ", { displayText });
-  const [userLevel, setUserLevel] = useState(0);
+  const [userLevel, setUserLevel] = useState(2);
 
   // Render appropriate test based on level
   let renderTest;

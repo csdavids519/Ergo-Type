@@ -37,6 +37,11 @@ export default function KeyInput({
       });
     }
 
+    // Auto-skip spaces
+    if (displayText[cursorPosition]?.[0] === " ") {
+      setCursorPosition((x) => x + 1);
+    }
+
     window.addEventListener("keydown", handleKeyPress);
 
     return () => {
