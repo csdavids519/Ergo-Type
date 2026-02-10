@@ -34,13 +34,13 @@ export default function UserTest_1({
   // const testGroup = (homeRow + topRow + lowerRow).split("");
   const targetGroup = "ASETF".split("");
   console.log({ targetGroup });
-  const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
+  const [currentTargetIndex, setCurrentTargetIndex] = useState(0);
   const testLength = 5;
   const [repCount, setRepCount] = useState(0);
   const maxRepCount = 5; // targetGroup.length
 
+  // set initial letter display
   useEffect(() => {
-    // set initial letter display
     setDisplayText(Array(testLength).fill([targetGroup[0]]));
   }, []);
 
@@ -53,11 +53,11 @@ export default function UserTest_1({
       // check not at end of rep count
       if (repCount < maxRepCount) {
         // move to next letter
-        setCurrentLetterIndex(nextIndex);
+        setCurrentTargetIndex(nextIndex);
         setDisplayText(Array(testLength).fill([targetGroup[nextIndex]]));
         setCursorPosition(0);
         setCorrectness(["static"]);
-        console.log({ currentLetterIndex });
+        console.log({ currentTargetIndex });
       }
       // at end of group target
       else {
@@ -65,7 +65,7 @@ export default function UserTest_1({
         setUserLevel(2);
         setCursorPosition(0);
         setCorrectness(["static"]);
-        setCurrentLetterIndex(0);
+        setCurrentTargetIndex(0);
       }
     }
   }, [cursorPosition, setDisplayText]);

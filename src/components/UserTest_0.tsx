@@ -34,7 +34,7 @@ export default function UserTest_0({
   // const testGroup = (homeRow + topRow + lowerRow).split("");
   const targetGroup = "ASETF".split("");
   console.log({ targetGroup });
-  const [currentLetterIndex, setCurrentLetterIndex] = useState(0);
+  const [currentTargetIndex, setCurrentTargetIndex] = useState(0);
   const testLength = 5;
 
   useEffect(() => {
@@ -45,16 +45,16 @@ export default function UserTest_0({
   useEffect(() => {
     // check cursor reaches end of current test length
     if (cursorPosition === testLength && cursorPosition > 0) {
-      const nextIndex = currentLetterIndex + 1;
+      const nextIndex = currentTargetIndex + 1;
 
       // check not at end of target group
       if (nextIndex < targetGroup.length) {
         // move to next letter
-        setCurrentLetterIndex(nextIndex);
+        setCurrentTargetIndex(nextIndex);
         setDisplayText(Array(testLength).fill([targetGroup[nextIndex]]));
         setCursorPosition(0);
         setCorrectness(["static"]);
-        console.log({ currentLetterIndex });
+        console.log({ currentTargetIndex });
       }
       // check if at end of group target
       else {
@@ -62,7 +62,7 @@ export default function UserTest_0({
         setUserLevel(1);
         setCursorPosition(0);
         setCorrectness(["static"]);
-        setCurrentLetterIndex(0);
+        setCurrentTargetIndex(0);
       }
     }
   }, [cursorPosition, setDisplayText]);

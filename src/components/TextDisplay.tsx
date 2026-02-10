@@ -2,6 +2,7 @@
 import { useState } from "react";
 import UserTest_0 from "./UserTest_0";
 import UserTest_1 from "./UserTest_1";
+import UserTest_2 from "./UserTest_2";
 
 console.log("TextDisplay component loaded");
 interface TextDisplayProps {
@@ -27,7 +28,7 @@ export default function TextDisplay({
   homeRow,
   lowerRow,
 }: TextDisplayProps) {
-  const [userLevel, setUserLevel] = useState(0);
+  const [userLevel, setUserLevel] = useState(2);
   console.log("userLevel: ", { userLevel });
   const userMessage = `Level ${userLevel}`;
 
@@ -56,6 +57,19 @@ export default function TextDisplay({
         topRow={topRow}
         homeRow={homeRow}
         lowerRow={lowerRow}
+        correctness={correctness}
+        setCorrectness={setCorrectness}
+        displayText={displayText}
+        setDisplayText={setDisplayText}
+        cursorPosition={cursorPosition}
+        setCursorPosition={setCursorPosition}
+        userLevel={userLevel}
+        setUserLevel={setUserLevel}
+      />
+    );
+  } else if (userLevel === 2) {
+    renderTest = (
+      <UserTest_2
         correctness={correctness}
         setCorrectness={setCorrectness}
         displayText={displayText}
