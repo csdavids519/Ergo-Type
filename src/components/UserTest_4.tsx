@@ -5,9 +5,9 @@
 import { useState, useEffect } from "react";
 import TextColor from "./TextColor";
 
-console.log("UserTest_2 component loaded");
+console.log("UserTest_4 component loaded");
 
-interface UserTest_2Props {
+interface UserTest_4Props {
   correctness: string[];
   setCorrectness: React.Dispatch<React.SetStateAction<string[]>>;
   displayText: string[];
@@ -26,7 +26,7 @@ export default function UserTest_2({
   cursorPosition,
   setCursorPosition,
   setUserLevel,
-}: UserTest_2Props) {
+}: UserTest_4Props) {
   const [currentTargetIndex, setCurrentTargetIndex] = useState(0);
   const targetGroup = [
     "the",

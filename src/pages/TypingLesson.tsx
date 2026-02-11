@@ -6,6 +6,8 @@ import UserTest_0 from "../components/UserTest_0";
 import UserTest_1 from "../components/UserTest_1";
 import UserTest_2 from "../components/UserTest_2";
 import UserTest_3 from "../components/UserTest_3";
+import UserTest_4 from "../components/UserTest_4";
+import UserTest_5 from "../components/UserTest_5";
 
 export default function TypingLesson() {
   const { topRow, homeRow, lowerRow } = useKeyboardLayout();
@@ -19,7 +21,7 @@ export default function TypingLesson() {
   console.log("cursorPosition: ", { cursorPosition });
   console.log("correctness: ", { correctness });
   console.log("displayText: ", { displayText });
-  const [userLevel, setUserLevel] = useState(2);
+  const [userLevel, setUserLevel] = useState(5);
 
   // Render appropriate test based on level
   let renderTest;
@@ -73,6 +75,32 @@ export default function TypingLesson() {
   } else if (userLevel === 3) {
     renderTest = (
       <UserTest_3
+        correctness={correctness}
+        setCorrectness={setCorrectness}
+        displayText={displayText}
+        setDisplayText={setDisplayText}
+        cursorPosition={cursorPosition}
+        setCursorPosition={setCursorPosition}
+        userLevel={userLevel}
+        setUserLevel={setUserLevel}
+      />
+    );
+  } else if (userLevel === 4) {
+    renderTest = (
+      <UserTest_4
+        correctness={correctness}
+        setCorrectness={setCorrectness}
+        displayText={displayText}
+        setDisplayText={setDisplayText}
+        cursorPosition={cursorPosition}
+        setCursorPosition={setCursorPosition}
+        userLevel={userLevel}
+        setUserLevel={setUserLevel}
+      />
+    );
+  } else if (userLevel === 5) {
+    renderTest = (
+      <UserTest_5
         correctness={correctness}
         setCorrectness={setCorrectness}
         displayText={displayText}

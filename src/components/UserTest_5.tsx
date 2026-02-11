@@ -5,9 +5,9 @@
 import { useState, useEffect } from "react";
 import TextColor from "./TextColor";
 
-console.log("UserTest_2 component loaded");
+console.log("UserTest_5 component loaded");
 
-interface UserTest_2Props {
+interface UserTest_5Props {
   correctness: string[];
   setCorrectness: React.Dispatch<React.SetStateAction<string[]>>;
   displayText: string[];
@@ -26,11 +26,11 @@ export default function UserTest_2({
   cursorPosition,
   setCursorPosition,
   setUserLevel,
-}: UserTest_2Props) {
+}: UserTest_5Props) {
   const [currentTargetIndex, setCurrentTargetIndex] = useState(0);
   const targetGroup = [
-    "the",
-    "be",
+    "The man was in the room and he had a plan",
+    "He was not sure if it was the one, but he would try",
     "that",
     "have",
     "this",
@@ -40,7 +40,7 @@ export default function UserTest_2({
     "say",
   ];
   const targetGroupUpper = targetGroup.map((x) => x.toUpperCase());
-  const testLength = 5;
+  const testLength = 1;
 
   /*
     [
