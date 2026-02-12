@@ -100,7 +100,7 @@ This is the way.
       // check if at end of group target
       else {
         // set user to next test
-        setUserLevel(3);
+        setUserLevel(0);
         setCursorPosition(0);
         setCorrectness(["static"]);
         setCurrentTargetIndex(0);

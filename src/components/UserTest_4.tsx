@@ -98,7 +98,7 @@ export default function UserTest_4({
       // check if at end of group target
       else {
         // set user to next test
-        setUserLevel(3);
+        setUserLevel(5);
         setCursorPosition(0);
         setCorrectness(["static"]);
         setCurrentTargetIndex(0);
