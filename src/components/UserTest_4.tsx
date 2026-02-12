@@ -92,6 +92,7 @@ export default function UserTest_4({
         setCurrentTargetIndex(nextIndex);
         setCursorPosition(0);
         setCorrectness(["static"]);
+        setUserScore(0);
         console.log({ currentTargetIndex });
       }
       // check if at end of group target

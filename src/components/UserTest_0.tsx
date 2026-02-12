@@ -64,6 +64,7 @@ export default function UserTest_0({
         setUserLevel(1);
         setCursorPosition(0);
         setCorrectness(["static"]);
+        setUserScore(0);
         setCurrentTargetIndex(0);
       }
     }
