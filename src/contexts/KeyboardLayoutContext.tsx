@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, type ReactNode } from "react";
 
 interface KeyboardLayoutContextType {
   topRow: string;
@@ -43,7 +43,7 @@ export function useKeyboardLayout() {
   const context = useContext(KeyboardLayoutContext);
   if (!context) {
     throw new Error(
-      "useKeyboardLayout must be used within KeyboardLayoutProvider"
+      "useKeyboardLayout must be used within KeyboardLayoutProvider",
     );
   }
   return context;
