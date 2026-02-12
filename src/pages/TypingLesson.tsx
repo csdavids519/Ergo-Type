@@ -15,6 +15,7 @@ export default function TypingLesson() {
   // position tracking states
   const [cursorPosition, setCursorPosition] = useState(0);
   const [displayText, setDisplayText] = useState<string[]>([]);
+  const [userScore, setUserScore] = useState(0);
   const [correctness, setCorrectness] = useState(() =>
     Array(displayText.length).fill("static"),
   );
@@ -26,7 +27,11 @@ export default function TypingLesson() {
   // Render appropriate test based on level
   let renderTest;
   const userMessage = `Level ${userLevel}`;
-
+  let userScoreMessage = Math.round((userScore / displayText.length) * 100);
+  const displayLength = displayText.length;
+  console.log("userScore: ", { userScore });
+  console.log("displayLength: ", { displayLength });
+  console.log("score %: ", userScore / displayText.length);
   if (userLevel === 0) {
     renderTest = (
       <UserTest_0
@@ -41,6 +46,7 @@ export default function TypingLesson() {
         setCursorPosition={setCursorPosition}
         userLevel={userLevel}
         setUserLevel={setUserLevel}
+        setUserScore={setUserScore}
       />
     );
   } else if (userLevel === 1) {
@@ -57,6 +63,7 @@ export default function TypingLesson() {
         setCursorPosition={setCursorPosition}
         userLevel={userLevel}
         setUserLevel={setUserLevel}
+        setUserScore={setUserScore}
       />
     );
   } else if (userLevel === 2) {
@@ -70,6 +77,7 @@ export default function TypingLesson() {
         setCursorPosition={setCursorPosition}
         userLevel={userLevel}
         setUserLevel={setUserLevel}
+        setUserScore={setUserScore}
       />
     );
   } else if (userLevel === 3) {
@@ -83,6 +91,7 @@ export default function TypingLesson() {
         setCursorPosition={setCursorPosition}
         userLevel={userLevel}
         setUserLevel={setUserLevel}
+        setUserScore={setUserScore}
       />
     );
   } else if (userLevel === 4) {
@@ -96,6 +105,7 @@ export default function TypingLesson() {
         setCursorPosition={setCursorPosition}
         userLevel={userLevel}
         setUserLevel={setUserLevel}
+        setUserScore={setUserScore}
       />
     );
   } else if (userLevel === 5) {
@@ -109,6 +119,7 @@ export default function TypingLesson() {
         setCursorPosition={setCursorPosition}
         userLevel={userLevel}
         setUserLevel={setUserLevel}
+        setUserScore={setUserScore}
       />
     );
   }
@@ -119,12 +130,14 @@ export default function TypingLesson() {
       <div className="m-5 p-5 rounded-lg border-2 border-indigo-700">
         <>
           <p>{userMessage}</p>
+          <p>{userScoreMessage}%</p>
           {renderTest}
         </>
       </div>
       <KeyInput
         setCorrectness={setCorrectness}
         setCursorPosition={setCursorPosition}
+        setUserScore={setUserScore}
         cursorPosition={cursorPosition}
         displayText={displayText}
       />

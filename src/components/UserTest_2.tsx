@@ -16,6 +16,7 @@ interface UserTest_2Props {
   setCursorPosition: React.Dispatch<React.SetStateAction<number>>;
   userLevel: number;
   setUserLevel: React.Dispatch<React.SetStateAction<number>>;
+  setUserScore: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export default function UserTest_2({
@@ -26,6 +27,7 @@ export default function UserTest_2({
   cursorPosition,
   setCursorPosition,
   setUserLevel,
+  setUserScore,
 }: UserTest_2Props) {
   const [currentTargetIndex, setCurrentTargetIndex] = useState(0);
   const targetGroup = ["th", "he", "in", "er"];

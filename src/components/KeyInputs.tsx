@@ -4,6 +4,7 @@ import { useEffect } from "react";
 interface KeyInputProps {
   setCorrectness: React.Dispatch<React.SetStateAction<string[]>>;
   setCursorPosition: React.Dispatch<React.SetStateAction<number>>;
+  setUserScore: React.Dispatch<React.SetStateAction<number>>;
   cursorPosition: number;
   displayText: string[];
 }
@@ -11,6 +12,7 @@ interface KeyInputProps {
 export default function KeyInput({
   setCorrectness,
   setCursorPosition,
+  setUserScore,
   cursorPosition,
   displayText,
 }: KeyInputProps) {
@@ -29,9 +31,11 @@ export default function KeyInput({
         console.log("Key: ", event.key);
         if (displayText[cursorPosition][0] === event.key) {
           next[cursorPosition] = "correct";
+          setUserScore((x) => x + 1);
           setCursorPosition((x) => x + 1);
         } else {
           next[cursorPosition] = "wrong";
+          setUserScore((x) => x - 1);
         }
         return next;
       });
@@ -39,6 +43,12 @@ export default function KeyInput({
 
     // Auto-skip spaces
     if (displayText[cursorPosition]?.[0] === " ") {
+      setCorrectness((prev) => {
+        const next = [...prev];
+        next[cursorPosition] = "correct";
+        return next;
+      });
+      setUserScore((x) => x + 1);
       setCursorPosition((x) => x + 1);
     }
 

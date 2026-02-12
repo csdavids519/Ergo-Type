@@ -16,9 +16,9 @@ interface UserTest_5Props {
   setCursorPosition: React.Dispatch<React.SetStateAction<number>>;
   userLevel: number;
   setUserLevel: React.Dispatch<React.SetStateAction<number>>;
+  setUserScore: React.Dispatch<React.SetStateAction<number>>;
 }
-
-export default function UserTest_2({
+export default function UserTest_5({
   correctness,
   setCorrectness,
   displayText,
@@ -26,11 +26,12 @@ export default function UserTest_2({
   cursorPosition,
   setCursorPosition,
   setUserLevel,
+  setUserScore,
 }: UserTest_5Props) {
   const [currentTargetIndex, setCurrentTargetIndex] = useState(0);
   const targetGroup = [
     "The man was in the room and he had a plan",
-    "He was not sure if it was the one, but he would try",
+    "He was not sure if it was the one but he would try",
     "that",
     "have",
     "this",
@@ -89,10 +90,11 @@ This is the way.
             .fill(null)
             .flatMap(() => [...splitLetters]),
         );
-
+        // end of current display text
         setCurrentTargetIndex(nextIndex);
         setCursorPosition(0);
         setCorrectness(["static"]);
+        setUserScore(0);
         console.log({ currentTargetIndex });
       }
       // check if at end of group target

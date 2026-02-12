@@ -16,9 +16,10 @@ interface UserTest_4Props {
   setCursorPosition: React.Dispatch<React.SetStateAction<number>>;
   userLevel: number;
   setUserLevel: React.Dispatch<React.SetStateAction<number>>;
+  setUserScore: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default function UserTest_2({
+export default function UserTest_4({
   correctness,
   setCorrectness,
   displayText,
@@ -26,6 +27,7 @@ export default function UserTest_2({
   cursorPosition,
   setCursorPosition,
   setUserLevel,
+  setUserScore,
 }: UserTest_4Props) {
   const [currentTargetIndex, setCurrentTargetIndex] = useState(0);
   const targetGroup = [

@@ -19,6 +19,7 @@ interface UserTest_0Props {
   setCursorPosition: React.Dispatch<React.SetStateAction<number>>;
   userLevel: number;
   setUserLevel: React.Dispatch<React.SetStateAction<number>>;
+  setUserScore: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export default function UserTest_0({
@@ -29,6 +30,7 @@ export default function UserTest_0({
   cursorPosition,
   setCursorPosition,
   setUserLevel,
+  setUserScore,
 }: UserTest_0Props) {
   console.log("UserTest_0 component RUNNING");
   // const testGroup = (homeRow + topRow + lowerRow).split("");
