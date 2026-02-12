@@ -6,7 +6,7 @@ import App from "./App.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter basename="/Ergo-Type">
+    <BrowserRouter basename="/Ergo-Type/">
       <App />
     </BrowserRouter>
   </StrictMode>,
