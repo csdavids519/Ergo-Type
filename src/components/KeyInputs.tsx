@@ -29,7 +29,7 @@ export default function KeyInput({
         const next = [...prev];
         console.log("Target: ", displayText[cursorPosition][0]);
         console.log("Key: ", event.key);
-        if (displayText[cursorPosition][0] === event.key) {
+        if (displayText[cursorPosition][0] === event.key.toUpperCase()) {
           next[cursorPosition] = "correct";
           setUserScore((x) => x + 1);
           setCursorPosition((x) => x + 1);
