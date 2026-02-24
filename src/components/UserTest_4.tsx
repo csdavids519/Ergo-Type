@@ -57,16 +57,16 @@ export default function UserTest_4({
   // set initial letter display
   useEffect(() => {
     const splitLetters = targetGroupUpper[0].split("");
-    // setDisplayText(
-    //   Array(testLength)
-    //     .fill(null)
-    //     .flatMap(() => [...splitLetters, " "]),
-    // );
     setDisplayText(
       Array(testLength)
         .fill(null)
-        .flatMap(() => [...splitLetters]),
+        .flatMap(() => [...splitLetters, " "]),
     );
+    // setDisplayText(
+    //   Array(testLength)
+    //     .fill(null)
+    //     .flatMap(() => [...splitLetters]),
+    // );
   }, [setDisplayText]);
 
   console.log("targetGroup:", { targetGroupUpper });
@@ -86,7 +86,7 @@ export default function UserTest_4({
         setDisplayText(
           Array(testLength)
             .fill(null)
-            .flatMap(() => [...splitLetters]),
+            .flatMap(() => [...splitLetters, " "]),
         );
 
         setCurrentTargetIndex(nextIndex);

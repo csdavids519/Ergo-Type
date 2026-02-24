@@ -25,48 +25,94 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen min-w-screen bg-linear-to-br from-black to-gray-700 flex items-center justify-center">
-      <div className="text-center text-slate-200">
-        <h1 className="text-6xl font-bold mb-4 text-blue-700">Ergo_Type</h1>
-        <div>
-          {!submitted && (
-            <form onSubmit={handleSubmit}>
+    <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center">
+      <div className="w-full max-w-6xl px-16 flex items-center gap-24">
+
+        {/* Left: Branding */}
+        <div className="flex-1">
+          <p className="text-xs font-semibold text-blue-400 tracking-[0.3em] uppercase mb-6">
+            Keyboard Layout Trainer
+          </p>
+          <h1 className="text-8xl font-black tracking-tight leading-none bg-gradient-to-br from-blue-400 via-cyan-300 to-blue-600 bg-clip-text text-transparent mb-6">
+            Ergo_<br />Type
+          </h1>
+          <p className="text-slate-400 text-lg leading-relaxed max-w-sm">
+            Train your fingers on any custom keyboard layout. Enter your key rows and start building muscle memory.
+          </p>
+          <div className="mt-10 flex gap-8 text-slate-500 text-sm">
+            <div>
+              <div className="text-2xl font-bold text-slate-200">3</div>
+              <div className="uppercase tracking-widest text-xs mt-1">Row Inputs</div>
+            </div>
+            <div className="w-px bg-white/10" />
+            <div>
+              <div className="text-2xl font-bold text-slate-200">Any</div>
+              <div className="uppercase tracking-widest text-xs mt-1">Layout</div>
+            </div>
+            <div className="w-px bg-white/10" />
+            <div>
+              <div className="text-2xl font-bold text-slate-200">∞</div>
+              <div className="uppercase tracking-widest text-xs mt-1">Practice</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right: Form */}
+        {!submitted && (
+          <form
+            onSubmit={handleSubmit}
+            className="w-[420px] shrink-0 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-10 shadow-2xl"
+          >
+            <h2 className="text-slate-200 text-xl font-bold mb-8">
+              Configure your layout
+            </h2>
+            <div className="space-y-5">
               <div>
+                <label className="block text-xs font-semibold text-slate-400 uppercase tracking-widest mb-2">
+                  Top Row
+                </label>
                 <input
                   type="text"
-                  className="text-center px-10 py-3 mb-5 border-2 text-2xl font-bold"
+                  className="w-full text-center px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-slate-100 text-lg font-mono font-bold placeholder-slate-600 focus:outline-none focus:border-blue-500/60 focus:bg-white/10 transition"
                   value={topRow}
-                  placeholder="Enter your TOP row keys"
+                  placeholder="e.g. QWERT YUIOP"
                   onChange={(e) => setTopRow(e.target.value.toUpperCase())}
                 />
               </div>
               <div>
+                <label className="block text-xs font-semibold text-slate-400 uppercase tracking-widest mb-2">
+                  Home Row
+                </label>
                 <input
                   type="text"
-                  className="text-center px-10 py-3 mb-5 border-2 text-2xl font-bold"
+                  className="w-full text-center px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-slate-100 text-lg font-mono font-bold placeholder-slate-600 focus:outline-none focus:border-blue-500/60 focus:bg-white/10 transition"
                   value={homeRow}
-                  placeholder="Enter your HOME row keys"
+                  placeholder="e.g. ASDF GHJKL"
                   onChange={(e) => setHomeRow(e.target.value.toUpperCase())}
                 />
               </div>
               <div>
+                <label className="block text-xs font-semibold text-slate-400 uppercase tracking-widest mb-2">
+                  Lower Row
+                </label>
                 <input
                   type="text"
-                  className="text-center px-10 py-3 mb-5 border-2 text-2xl font-bold"
+                  className="w-full text-center px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-slate-100 text-lg font-mono font-bold placeholder-slate-600 focus:outline-none focus:border-blue-500/60 focus:bg-white/10 transition"
                   value={lowerRow}
-                  placeholder="Enter your LOWER row keys"
+                  placeholder="e.g. ZXCV BNM"
                   onChange={(e) => setLowerRow(e.target.value.toUpperCase())}
                 />
               </div>
-              <button
-                className="inline-block bg-slate-500 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 hover:text-black transition"
-                type="submit"
-              >
-                Start Typing
-              </button>
-            </form>
-          )}
-        </div>
+            </div>
+
+            <button
+              type="submit"
+              className="mt-8 w-full py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-bold text-sm tracking-widest uppercase hover:from-blue-500 hover:to-cyan-400 active:scale-[0.98] transition-all duration-150 shadow-lg shadow-blue-900/40"
+            >
+              Start Typing
+            </button>
+          </form>
+        )}
       </div>
     </div>
   );

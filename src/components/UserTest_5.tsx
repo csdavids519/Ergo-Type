@@ -67,7 +67,7 @@ This is the way.
     setDisplayText(
       Array(testLength)
         .fill(null)
-        .flatMap(() => [...splitLetters]),
+        .flatMap(() => [...splitLetters, " "]),
     );
   }, [setDisplayText]);
 
@@ -88,7 +88,7 @@ This is the way.
         setDisplayText(
           Array(testLength)
             .fill(null)
-            .flatMap(() => [...splitLetters]),
+            .flatMap(() => [...splitLetters, " "]),
         );
         // end of current display text
         setCurrentTargetIndex(nextIndex);
