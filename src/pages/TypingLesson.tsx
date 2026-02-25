@@ -1,17 +1,9 @@
 import { useState } from "react";
-import { useKeyboardLayout } from "../contexts/KeyboardLayoutContext";
 import KeyInput from "../components/KeyInputs";
-// import TextDisplay from "../components/TextDisplay";
-import UserTest_0 from "../components/UserTest_0";
-import UserTest_1 from "../components/UserTest_1";
-import UserTest_2 from "../components/UserTest_2";
-import UserTest_3 from "../components/UserTest_3";
-import UserTest_4 from "../components/UserTest_4";
-import UserTest_5 from "../components/UserTest_5";
+import UserTest from "../components/UserTest";
+import { LEVEL_CONFIGS } from "../config/levelConfigs";
 
 export default function TypingLesson() {
-  const { topRow, homeRow, lowerRow } = useKeyboardLayout();
-
   // position tracking states
   const [cursorPosition, setCursorPosition] = useState(0);
   const [displayText, setDisplayText] = useState<string[]>([]);
@@ -24,105 +16,52 @@ export default function TypingLesson() {
   console.log("displayText: ", { displayText });
   const [userLevel, setUserLevel] = useState(0);
 
-  // Render appropriate test based on level
-  let renderTest;
   const userMessage = `Level ${userLevel}`;
   let userScoreMessage = Math.round((userScore / displayText.length) * 100);
   const displayLength = displayText.length;
   console.log("userScore: ", { userScore });
   console.log("displayLength: ", { displayLength });
   console.log("score %: ", userScore / displayText.length);
-  if (userLevel === 0) {
-    renderTest = (
-      <UserTest_0
-        topRow={topRow}
-        homeRow={homeRow}
-        lowerRow={lowerRow}
-        correctness={correctness}
-        setCorrectness={setCorrectness}
-        displayText={displayText}
-        setDisplayText={setDisplayText}
-        cursorPosition={cursorPosition}
-        setCursorPosition={setCursorPosition}
-        userLevel={userLevel}
-        setUserLevel={setUserLevel}
-        setUserScore={setUserScore}
-      />
-    );
-  } else if (userLevel === 1) {
-    renderTest = (
-      <UserTest_1
-        topRow={topRow}
-        homeRow={homeRow}
-        lowerRow={lowerRow}
-        correctness={correctness}
-        setCorrectness={setCorrectness}
-        displayText={displayText}
-        setDisplayText={setDisplayText}
-        cursorPosition={cursorPosition}
-        setCursorPosition={setCursorPosition}
-        userLevel={userLevel}
-        setUserLevel={setUserLevel}
-        setUserScore={setUserScore}
-      />
-    );
-  } else if (userLevel === 2) {
-    renderTest = (
-      <UserTest_2
-        correctness={correctness}
-        setCorrectness={setCorrectness}
-        displayText={displayText}
-        setDisplayText={setDisplayText}
-        cursorPosition={cursorPosition}
-        setCursorPosition={setCursorPosition}
-        userLevel={userLevel}
-        setUserLevel={setUserLevel}
-        setUserScore={setUserScore}
-      />
-    );
-  } else if (userLevel === 3) {
-    renderTest = (
-      <UserTest_3
-        correctness={correctness}
-        setCorrectness={setCorrectness}
-        displayText={displayText}
-        setDisplayText={setDisplayText}
-        cursorPosition={cursorPosition}
-        setCursorPosition={setCursorPosition}
-        userLevel={userLevel}
-        setUserLevel={setUserLevel}
-        setUserScore={setUserScore}
-      />
-    );
-  } else if (userLevel === 4) {
-    renderTest = (
-      <UserTest_4
-        correctness={correctness}
-        setCorrectness={setCorrectness}
-        displayText={displayText}
-        setDisplayText={setDisplayText}
-        cursorPosition={cursorPosition}
-        setCursorPosition={setCursorPosition}
-        userLevel={userLevel}
-        setUserLevel={setUserLevel}
-        setUserScore={setUserScore}
-      />
-    );
-  } else if (userLevel === 5) {
-    renderTest = (
-      <UserTest_5
-        correctness={correctness}
-        setCorrectness={setCorrectness}
-        displayText={displayText}
-        setDisplayText={setDisplayText}
-        cursorPosition={cursorPosition}
-        setCursorPosition={setCursorPosition}
-        userLevel={userLevel}
-        setUserLevel={setUserLevel}
-        setUserScore={setUserScore}
-      />
+
+  // When all levels are complete, show completion screen
+  if (userLevel >= LEVEL_CONFIGS.length) {
+    return (
+      <div className="min-h-screen w-full bg-[#0a0a0f] flex flex-col items-center justify-center gap-6">
+        <p className="text-xs uppercase tracking-[0.3em] text-slate-500">All levels complete</p>
+        <h2 className="text-6xl font-black bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
+          You finished!
+        </h2>
+        <button
+          onClick={() => {
+            setUserLevel(0);
+            setUserScore(0);
+            setCursorPosition(0);
+            setCorrectness(["static"]);
+            setDisplayText([]);
+          }}
+          className="px-6 py-2 text-sm font-mono bg-blue-600 text-white rounded hover:bg-blue-500 transition"
+        >
+          Start again
+        </button>
+      </div>
     );
   }
+
+  const renderTest = (
+    <UserTest
+      key={userLevel}
+      config={LEVEL_CONFIGS[userLevel]}
+      levelIndex={userLevel}
+      correctness={correctness}
+      setCorrectness={setCorrectness}
+      displayText={displayText}
+      setDisplayText={setDisplayText}
+      cursorPosition={cursorPosition}
+      setCursorPosition={setCursorPosition}
+      setUserLevel={setUserLevel}
+      setUserScore={setUserScore}
+    />
+  );
 
   return (
     <div className="min-h-screen w-full bg-[#0a0a0f] flex flex-col">
